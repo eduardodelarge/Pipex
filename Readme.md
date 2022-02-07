@@ -1,4 +1,4 @@
-#Pipex
+Pipex
 
 ## For this task we must create a program name pipex who will behave like de | "pipe" command from bash.
     here are the shell commands we are allowed to use:
