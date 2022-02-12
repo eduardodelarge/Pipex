@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:41:23 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/12 14:14:07 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:57:53 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@
 #include <stdlib.h>
 #include <malloc.h>
 
-char    *path(char **envp, char *arg)
+char    *find_n_exec(char **envp, char *arg)
 {
     
-}
-
-static void cmd_exec(char *arg, char **envp)
-{
     
 }
 
