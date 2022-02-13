@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:41:23 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/13 00:06:46 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:40:54 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,77 +17,103 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <fcntl.h>
 
-// create a func that returns and execute a command
-// int find_n_exec(const char *path, char *const argv[], char *envp[])
-// {
-//     int     i;
-//     char    *path;
-//     char    **curr_path;
-    
-//     curr_path = envp;
-//     i = 0;
-//     while (envp[i] && strsep(envp, " ") != NULL)
-//         i++;
-//     path = strsep(curr_path, " ");
-//     if (access(path, F_OK) == 0)
-//         return(path);
-//     return(0);
-     
-// }
-
-// static void pipex(int fd1, int fd2, char **argv, char **envp)
-// {
-    
-// }
-
-void    arg_count(char* command)
+char    *find_path(char *arg, char **envp)
 {
-    int i;
-    int arg_count;
-    
-    i = 0;
-    arg_count = 0;
-    
-    while (command[i] == ' ')
-    {
-        i++;
-    }
-    command = command + i;
-    
-    i = 0;
-    while (command[i] != '\0')
-    {
-        if (command[i] == ' ')
-             arg_count++;
-        i++;
-    }
+  char    **in_path;
+  char    *out_path;
+  char    tmp;
+  int     i;
+
+  i = 0;
+  while (envp[i] && strncmp(envp[i], "PATH", 4))
+    i++;
+  in_path = strsep(&envp[i], ":");
+  i = 0;
+  while (in_path[i])
+  {
+    tmp = strncat(in_path[i], "/", 100 - strlen(in_path) - 1);
+    out_path = strcat(tmp, arg);
+    free(tmp);
+    if (access(out_path, F_OK) == 0)
+      return(out_path);
+    i++;
+  }
+  return (0);
 }
 
-void    execute_command(char* command)
+int     exec_cmd(char *arg, char **envp)
 {
-    int     i;
-    char    **argv;
-    char    *argument;
-    
-    char **argv = ft_calloc(arg_count + 2, sizeof(char*));
-    char *argument = NULL;
-    i = 0;        
-    while ((argument = ft_strsep(&command, " ")) != NULL) {
-       if (strlen(argument) != 0) {
-           argv[i] = ft_calloc(strlen(argument) + 1, sizeof(char));
-           strncpy(argv[i], argument, strlen(argument));
-       }
-       i++; 
-    }
-    argv[i] = NULL;     
-    if (execvp(argv[0], argv) != 0)
-    {
-        fprintf(stderr, "Error creating pipe. %s",         strerror(errno));
-    }
+  	char	**cmd;
+	int		i;
+
+	i = 0;
+	if (*arg)
+	{
+		cmd = strsep(&arg, " ");
+		execve(find_path(envp, cmd[0]), cmd, envp);
+		write(1, "error", 5);
+	}
+	else
+	{
+		perror("\033[31mError");
+	}
+	exit(127);
 }
 
-int main(int argc, char **argv[])
+void	main_process(char **argv, char **envp, int *fd)
 {
+  int		fileout;
 
+	fileout = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fileout == -1)
+		perror("\033[31mError");
+	  exit(EXIT_FAILURE);
+	dup2(fd[0], STDIN_FILENO);
+	dup2(fileout, STDOUT_FILENO);
+	close(fd[1]);
+	execute(argv[3], envp);
 }
+
+void	spawn_process(char **argv, char **envp, int *fd)
+{
+  int		filein;
+
+	filein = open(argv[1], O_RDONLY, 0777);
+	if (filein == -1)
+		perror("\033[31mError");
+	  exit(EXIT_FAILURE);
+	dup2(fd[1], STDOUT_FILENO);
+	dup2(filein, STDIN_FILENO);
+	close(fd[0]);
+	execute(argv[2], envp);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+  int		fd[2];
+	pid_t	pid1;
+
+	if (argc == 5)
+	{
+		if (pipe(fd) == -1)
+			perror("\033[31mError");
+	    exit(EXIT_FAILURE);
+		pid1 = fork();
+		if (pid1 == -1)
+			perror("\033[31mError");
+	    exit(EXIT_FAILURE);
+		if (pid1 == 0)
+			spawn_process(argv, envp, fd);
+		waitpid(pid1, NULL, 0);
+		main_process(argv, envp, fd);
+	}
+	else
+	{
+		ft_putstr_fd("\033[31mError: Bad arguments\n\e[0m", 2);
+		ft_putstr_fd("Ex: ./pipex <file1> <cmd1> <cmd2> <file2>\n", 1);
+	}
+	return (0);
+}
+
