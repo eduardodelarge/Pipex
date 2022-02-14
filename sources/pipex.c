@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:41:23 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/13 18:40:54 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/14 00:15:21 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ char    *find_path(char *arg, char **envp)
   i = 0;
   while (envp[i] && strncmp(envp[i], "PATH", 4))
     i++;
-  in_path = strsep(&envp[i], ":");
+  in_path = ft_split(envp[i] + 5, ':');
   i = 0;
   while (in_path[i])
   {
-    tmp = strncat(in_path[i], "/", 100 - strlen(in_path) - 1);
-    out_path = strcat(tmp, arg);
+    tmp = ft_strjoin(in_path[i], "/");
+    out_path = ft_strjoin(tmp, arg);
     free(tmp);
     if (access(out_path, F_OK) == 0)
       return(out_path);
@@ -51,9 +51,9 @@ int     exec_cmd(char *arg, char **envp)
 	i = 0;
 	if (*arg)
 	{
-		cmd = strsep(&arg, " ");
+		cmd = ft_split(arg, ' ');
 		execve(find_path(envp, cmd[0]), cmd, envp);
-		write(1, "error", 5);
+		perror("\033[31mError");
 	}
 	else
 	{
@@ -73,7 +73,7 @@ void	main_process(char **argv, char **envp, int *fd)
 	dup2(fd[0], STDIN_FILENO);
 	dup2(fileout, STDOUT_FILENO);
 	close(fd[1]);
-	execute(argv[3], envp);
+	exec_cmd(argv[3], envp);
 }
 
 void	spawn_process(char **argv, char **envp, int *fd)
@@ -87,7 +87,7 @@ void	spawn_process(char **argv, char **envp, int *fd)
 	dup2(fd[1], STDOUT_FILENO);
 	dup2(filein, STDIN_FILENO);
 	close(fd[0]);
-	execute(argv[2], envp);
+	exec_cmd(argv[2], envp);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -116,4 +116,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
