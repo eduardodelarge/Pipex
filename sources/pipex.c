@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:41:23 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/14 00:15:21 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/14 00:23:00 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char    *find_path(char *arg, char **envp)
   {
     tmp = ft_strjoin(in_path[i], "/");
     out_path = ft_strjoin(tmp, arg);
-    free(tmp);
     if (access(out_path, F_OK) == 0)
       return(out_path);
     i++;

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/10 19:26:29 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/14 00:37:49 by caeduard         ###   ########.fr       */
+/*   Created: 2022/02/14 00:45:02 by caeduard          #+#    #+#             */
+/*   Updated: 2022/02/14 00:45:03 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strsep (char **stringp, const char *delim)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-  char *begin;
-  char *end;
-  
-  begin = *stringp;
-  if (begin == NULL)
-    return NULL;
-  end = begin + strcspn (begin, delim);
-  if (*end)
-    {
-      *end++ = '\0';
-      *stringp = end;
-    }
-  else
-    *stringp = NULL;
-  return begin;
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (i < (n - 1) && str1[i] != '\0' && str2[i] != '\0')
+	{
+		if (str1[i] != str2[i])
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+		i++;
+	}
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }
