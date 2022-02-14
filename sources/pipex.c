@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:41:23 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/14 00:23:00 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/14 00:55:48 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <fcntl.h>
+#include "pipex.h"
 
 char    *find_path(char *arg, char **envp)
 {
@@ -89,9 +90,9 @@ void	spawn_process(char **argv, char **envp, int *fd)
 	exec_cmd(argv[2], envp);
 }
 
-int	main(int argc, char **argv, char **envp)
+int		main(int argc, char **argv, char **envp)
 {
-  int		fd[2];
+  	int		fd[2];
 	pid_t	pid1;
 
 	if (argc == 5)
