@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:41:23 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/14 02:08:00 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:08:32 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@
 #include <fcntl.h>
 #include "pipex.h"
 
-char    *find_path(char *arg, char **envp)
+char    *find_path(char **arg, char **envp)
 {
   char    **in_path;
   char    *out_path;
-  char    tmp;
+  char    *tmp;
   int     i;
 
   i = 0;
-  while (envp[i] && strncmp(envp[i], "PATH", 4))
+  while (envp[i] && ft_strncmp(envp[i], "PATH", 4))
     i++;
   in_path = ft_split(envp[i] + 5, ':');
   i = 0;
   while (in_path[i])
   {
     tmp = ft_strjoin(in_path[i], "/");
-    out_path = ft_strjoin(tmp, arg);
+    out_path = ft_strjoin(tmp, *arg);
     if (access(out_path, F_OK) == 0)
       return(out_path);
     i++;
@@ -46,18 +46,16 @@ char    *find_path(char *arg, char **envp)
 int     exec_cmd(char *arg, char **envp)
 {
   	char	**cmd;
-	int		i;
 
-	i = 0;
 	if (*arg)
 	{
 		cmd = ft_split(arg, ' ');
-		execve(find_path(envp, cmd[0]), cmd, envp);
-		perror("\033[31mError");
+		execve(find_path(&cmd[0], envp), cmd, envp);
+		error(cmd[0], "command not found");
 	}
 	else
 	{
-		perror("\033[31mError");
+		error("", "command not found");
 	}
 	exit(127);
 }
@@ -111,8 +109,8 @@ int		main(int argc, char **argv, char **envp)
 	}
 	else
 	{
-		ft_putstr_fd("\033[31mError: Bad arguments\n\e[0m", 2);
-		ft_putstr_fd("Ex: ./pipex <file1> <cmd1> <cmd2> <file2>\n", 1);
+		write(1, "Error: Bad arguments", 21);
+		write(1, "Ex: ./pipex <file1> <cmd1> <cmd2> <file2>", 42);
 	}
 	return (0);
 }
