@@ -1,6 +1,6 @@
 NAME	=	pipex
 SRC 	=	pipex.c ft_split.c ft_strncmp.c ft_substr.c ft_putstr_fd.c \
-			ft_strdup.c ft_strlen.c ft_strjoin.c ft_putendl_fd.c
+			ft_strdup.c ft_strlen.c ft_strjoin.c ft_putendl_fd.c ft_strnstr.c
 OBJ		=	${SRC:.c=.o}
 FLAGS	=	-Wall -Werror -Wextra 
 HEADER	=	pipex.h

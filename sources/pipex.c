@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 20:29:28 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/15 21:02:54 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:17:50 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,40 +33,31 @@ int		ft_scroll_envp(char **envp, int i)
 
 char	*path_find(char *arguments, char **envp)
 {
-	char	*en_var;
-	char	**path;
-	char	*to_free;
+	char	**paths;
+	char	*path;
 	int		i;
-	int		j;
+	char	*part_path;
 
 	i = 0;
-	i = ft_scroll_envp(envp, i);
-	en_var = ft_substr(envp[i], 5, 166);
-	path = ft_split(en_var, ':');
-	free(en_var);
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+		i++;
+	paths = ft_split(envp[i] + 5, ':');
 	i = 0;
-	while (path[i] != NULL)
+	while (paths[i])
 	{
-		to_free = ft_strjoin(path[i], "/");
-		free(path[i]);
-		path[i] = ft_strjoin(to_free, arguments);
-		free(to_free);
-		if ((access(path[i], X_OK)) == 0)
-		{
-			for (int j = 0; path[j] != NULL; j++) {
-				if (j != i)
-					free(path[j]);
-			}
-			free(path);
-			return (path[i]);
-		}
+		part_path = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(part_path, arguments);
+		free(part_path);
+		if (access(path, F_OK) == 0)
+			return (path);
+		free(path);
 		i++;
 	}
-	for (int j = 0; path[j] != NULL; j++) {
-		free(path[j]);
-	}
-	free(path);
-	return (NULL);
+	i = -1;
+	while (paths[++i])
+		free(paths[i]);
+	free(paths);
+	return (0);
 }
 
 void	child_process(char **argv, char **envp, int *pipefd)
@@ -115,3 +106,5 @@ int		main(int argc, char **argv, char **envp)
 	execve(path, arguments, envp);
 	return (0);
 }
+
+

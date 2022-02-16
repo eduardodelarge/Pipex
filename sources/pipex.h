@@ -6,7 +6,7 @@
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 20:29:39 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/15 21:03:18 by caeduard         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:15:59 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 
+char	*ft_strnstr(const char	*big, const char *little, size_t len);
 void	child_process(char **argv, char **envp, int *pipefd);
 char	*path_find(char *arguments, char **envp);
 int		ft_scroll_envp(char **envp, int i);
