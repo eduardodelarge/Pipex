@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 20:40:45 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/15 20:40:46 by caeduard         ###   ########.fr       */
+/*   Created: 2022/02/15 20:40:33 by caeduard          #+#    #+#             */
+/*   Updated: 2022/02/15 20:40:34 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	ft_strncmp(const char *str1, const char *str2, size_t n)
+char	*ft_strdup(char *src)
 {
-	size_t	i;
+	char	*str;
+	size_t	len;
+	char	*p;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (i < (n - 1) && str1[i] != '\0' && str2[i] != '\0')
-	{
-		if (str1[i] != str2[i])
-			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
-		i++;
-	}
-	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+	len = ft_strlen(src);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	p = str;
+	while (*src)
+		*(p++) = *(src++);
+	*p = '\0';
+	return (str);
 }

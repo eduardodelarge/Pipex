@@ -1,17 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/14 02:04:30 by caeduard          #+#    #+#              #
-#    Updated: 2022/02/14 02:05:04 by caeduard         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME	=	pipex
-SRC 	=	pipex.c ft_split.c ft_strncmp.c ft_strjoin.c
+SRC 	=	pipex.c ft_split.c ft_strncmp.c ft_substr.c ft_putstr_fd.c \
+			ft_strdup.c ft_strlen.c ft_strjoin.c ft_putendl_fd.c
 OBJ		=	${SRC:.c=.o}
 FLAGS	=	-Wall -Werror -Wextra 
 HEADER	=	pipex.h

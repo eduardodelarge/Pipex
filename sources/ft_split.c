@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/14 00:44:28 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/14 02:28:10 by caeduard         ###   ########.fr       */
+/*   Created: 2022/02/15 20:40:29 by caeduard          #+#    #+#             */
+/*   Updated: 2022/02/15 20:40:30 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static int	ft_count_words(char const *s, char c)
 {
+	int	i;
 	int	count;
 
+	i = 0;
 	count = 0;
 	while (*s)
 	{

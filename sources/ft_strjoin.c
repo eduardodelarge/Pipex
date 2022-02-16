@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/14 00:44:40 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/14 02:32:06 by caeduard         ###   ########.fr       */
+/*   Created: 2022/02/15 20:40:36 by caeduard          #+#    #+#             */
+/*   Updated: 2022/02/15 20:40:37 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*ft_do_join(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	str = (char *)malloc(sizeof(char) * (strlen(s1) + strlen(s2) + 1));
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
 	while (s1[i])
@@ -39,6 +39,11 @@ static char	*ft_do_join(char const *s1, char const *s2)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1 && s2)
