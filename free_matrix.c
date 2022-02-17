@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   free_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 13:15:35 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/16 13:15:42 by caeduard         ###   ########.fr       */
+/*   Created: 2022/02/16 20:35:15 by caeduard          #+#    #+#             */
+/*   Updated: 2022/02/17 11:26:27 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strnstr(const char	*big, const char *little, size_t len)
+void	free_matrix(char **matrix)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
 
 	i = 0;
-	if (little[i] == '\0')
-		return ((char *)big);
-	while (big[i] && i < len)
+	while (matrix[i] != NULL)
 	{
-		j = 0;
-		while (big[i + j] == little[j] && i + j < len)
-		{
-			if (little[j + 1] == '\0')
-				return ((char *)big + i);
-			j++;
-		}
+		free(matrix[i]);
 		i++;
 	}
-	return (0);
+	free(matrix);
 }

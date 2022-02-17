@@ -2,3 +2,9 @@
     "vscode_vibrancy.opacity": 0.7,
     "vscode_vibrancy.type": "acrylic"
 }
+
+{
+    "[c]": {
+      "editor.defaultFormatter": "keyhr.42-c-format"
+    }
+  }
