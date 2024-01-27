@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 19:34:00 by coder             #+#    #+#             */
-/*   Updated: 2022/02/17 15:32:32 by coder            ###   ########.fr       */
+/*   Created: 2022/02/15 20:40:39 by caeduard          #+#    #+#             */
+/*   Updated: 2022/02/17 15:31:26 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-void	ft_putstr_fd(char *s, int fd)
+size_t	ft_strlen(const char *str)
 {
-	while (*s)
-		write(fd, s++, 1);
+	size_t	len;
+
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	return (len);
 }

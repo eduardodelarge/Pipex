@@ -20,6 +20,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdio.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 char	*ft_strdup(const char *str);
 char	*ft_strtrim(const char *s1, const char *set);

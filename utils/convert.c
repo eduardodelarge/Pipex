@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 char	*convert(char *string, char spc, char ascii)
 {
@@ -71,42 +71,3 @@ void	reverse(char **matrix)
 		i++;
 	}
 }
-
-/*void    invert(char **matrix)
-{
-    int     i;
-    int     j;
-    
-    i = 0;
-    while(matrix[i])
-    {
-        j = 0;
-        while(matrix[i][j] != '\0' )
-        {
-            if(matrix[i][j] == 1)
-            {
-                matrix[i][j] = ' ';
-            }
-            if(matrix[i][j] == 39 )
-            {
-                matrix[i][j] = 1;
-            }
-            j++;
-        }
-        i++;
-    }
-}*/
-/*int main (void)
-{
-    char    *str;
-    char     *string_teste;
-    char    **matrix;
-
-    str = "tr e ' '";
-    string_teste = convert(str, ' ', 1);
-    matrix = ft_split(string_teste, ' ');
-    invert(matrix);
-    printf("%s\n", string_teste);
-    printf("%s\n", matrix[2]);
-    return(0);
-}*/

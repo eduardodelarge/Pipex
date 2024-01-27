@@ -10,30 +10,28 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	pipex
-SRC 	=	pipex.c ft_split.c ft_strncmp.c  ft_putstr_fd.c convert.c \
-			ft_strlen.c ft_strjoin.c ft_putendl_fd.c free_matrix.c ft_strtrim.c
-OBJ		=	${SRC:.c=.o}
-FLAGS	=	-Wall -Wextra -Werror
-HEADER	=	pipex.h
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
+NAME = pipex
+SRC_DIR = utils/
+INC_DIR = includes/
+SRC_FILES = $(wildcard $(SRC_DIR)*.c)
+OBJ_FILES = $(SRC_FILES:.c=.o)
 
-CC		=	gcc
+all: $(NAME)
 
-.c.o:
-	$(CC) $(FLAGS) -c $< -o $@
+$(NAME): $(OBJ_FILES)
+    $(CC) $(FLAGS) -I $(INC_DIR) $^ -o $@
 
-all:		$(NAME)
+%.o: %.c
+    $(CC) $(FLAGS) -I $(INC_DIR) -c $< -o $@
 
-$(NAME):	$(OBJ) $(HEADER)
-			gcc $(FLAGS) $(OBJ) -o $(NAME);
-			@echo "\n\033[32m Compilation Done! ⌐(ಠ۾ಠ)¬" 
 clean:
-			rm -rf ${OBJ}
+    rm -f $(OBJ_FILES)
 
-fclean: 	clean
-			rm -rf ${NAME} 
-			@echo "\n\033[34m Goodbye files ⌐(ಠ۾ಠ)¬" 
+fclean: clean
+    rm -f $(NAME)
 
-re: 		fclean all
+re: fclean all
 
-.PHONY: 	all clean fclean re
+.PHONY: all clean fclean re

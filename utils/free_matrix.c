@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   free_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: caeduard <caeduard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 20:40:39 by caeduard          #+#    #+#             */
-/*   Updated: 2022/02/17 15:31:26 by coder            ###   ########.fr       */
+/*   Created: 2022/02/16 20:35:15 by caeduard          #+#    #+#             */
+/*   Updated: 2022/02/17 11:26:27 by caeduard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-size_t	ft_strlen(const char *str)
+void	free_matrix(char **matrix)
 {
-	size_t	len;
+	int	i;
 
-	len = 0;
-	while (str[len] != '\0')
-		len++;
-	return (len);
+	i = 0;
+	while (matrix[i] != NULL)
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
 }
